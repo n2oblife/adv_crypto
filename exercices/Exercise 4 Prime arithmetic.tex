@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage[parfill]{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\author{Add your name here}
+\date{XX.XX.2025}
+\title{Prime arithmetic}
+
+\usepackage{filecontents}
+
+\begin{filecontents}{lecture-tum-aci-ss2025-U4.bib}
+@book{HAC,
+  added-at = {2007-04-16T14:16:26.000+0200},
+  author = {Menezes, Alfred J. and van Oorschot, Paul C. and Vanstone, Scott A.},
+  biburl = {https://www.bibsonomy.org/bibtex/21fb86a3afb62bbb4bc2f94a0299a4d59/kidloc},
+  interhash = {d5837a554ce2ffd49f551045400e244c},
+  intrahash = {1fb86a3afb62bbb4bc2f94a0299a4d59},
+  keywords = {cryptography handbook programming reference security},
+  publisher = {CRC Press},
+  timestamp = {2007-04-16T14:16:26.000+0200},
+  title = {Handbook of Applied Cryptography},
+  url = {http://www.cacr.math.uwaterloo.ca/hac/},
+  year = 2001
+}
+\end{filecontents}
+
+\usepackage{biblatex}
+\addbibresource{lecture-tum-aci-ss2025-U4.bib}
+\nocite{*}
+
+\begin{document}
+\maketitle
+
+\section{Exercise \#1}
+
+1. Write the operand scanning multiplication algorithm (Alg. 12) for $m=n=3$.
+
+2. Provide a graphical representation of the operand scanning multiplication algorithm  (Alg. 12) for $m=n=3$: represent the sequence how the partial products
+$a_ib_j$ are computed and added together including the carries (Line 6, Alg. 12).
+
+\section{Exercise \#2}
+
+1. Write the operand scanning multiplication algorithm (Alg. 12) for $m=n=3$ and $A=B$.
+
+2. Optimize the operand scanning multiplication algorithm (Alg. 12) when $A=B$: write the optimized algorithm.
+
+3. Provide a graphical representation of the optimized operand scanning multiplication algorithm  (Alg. 12) when $A=B$ and $m=n=3$.
+
+\section{Exercise \#3 (Extra)}
+
+1. Explain the proof of termination of Alg. 14 (cf. \cite[p. 605]{HAC}).
+
+2. Explain the proof of correctness of Alg. 14 (cf. \cite[p. 605]{HAC}).
+
+\printbibliography
+
+
+\end{document}

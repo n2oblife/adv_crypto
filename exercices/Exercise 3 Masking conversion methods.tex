@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage[parfill]{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\author{Add your name here}
+\date{XX.XX.2025}
+\title{Masking conversion methods}
+
+\usepackage{filecontents}
+
+\begin{filecontents}{lecture-tum-aci-ss2025-U3.bib}
+@inproceedings{DBLP:conf/ches/Goubin01,
+  author       = {Louis Goubin},
+  editor       = {{\c{C}}etin Kaya Ko{\c{c}} and
+                  David Naccache and
+                  Christof Paar},
+  title        = {A Sound Method for Switching between Boolean and Arithmetic Masking},
+  booktitle    = {Cryptographic Hardware and Embedded Systems - {CHES} 2001, Third International
+                  Workshop, Paris, France, May 14-16, 2001, Proceedings},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {2162},
+  pages        = {3--15},
+  publisher    = {Springer},
+  year         = {2001},
+  url =          {http://www.goubin.fr/papers/arith-final.pdf},
+  doi          = {10.1007/3-540-44709-1\_2},
+}
+@inproceedings{coron2014,
+  author =       "Coron, Jean-Sébastien and Großschädl, Johann and
+                  Vadnala, Praveen Kumar",
+  title =        "Secure Conversion between Boolean and Arithmetic Masking of
+                  Any Order",
+  booktitle =    "Cryptographic Hardware and Embedded Systems -- CHES 2014",
+  year =         2014,
+  pages =        "188--205",
+  address =      "Berlin, Heidelberg",
+  editor =       "Batina, Lejla and Robshaw, Matthew",
+  isbn =         "978-3-662-44709-3",
+  keywords =     {Article},
+  url =          {https://www.iacr.org/archive/ches2014/87310157/87310157.pdf},
+  publisher =    "Springer Berlin Heidelberg",
+}
+\end{filecontents}
+
+\usepackage{biblatex}
+\addbibresource{lecture-tum-aci-ss2025-U3.bib}
+\nocite{*}
+
+\begin{document}
+\maketitle
+
+\section{Exercise \#1}
+
+Explain the formula for $k$-bit modular addition (cf. \cite[Sec. 3.1]{coron2014}) and the recursion formula of Goubin's theorem (cf. \cite[Sec. 3.2]{coron2014}) and provide a comparison
+by the way of an example.
+
+\section{Exercise \#2}
+
+1. Explain \cite[Alg. 4]{coron2014} and \cite[Alg. 6]{coron2014} by the way of an example.
+
+2. Provide a graphical representation of \cite[Alg. 4]{coron2014} and \cite[Alg. 6]{coron2014} for $n=2$ and $n=4$.
+
+\section{Exercise \#3 (Extra)}
+
+1. Provide a proof of Lemma 2 (cf. \cite[Annex 1]{DBLP:conf/ches/Goubin01}).
+
+2. Explain Theorem 2 by the way of an example (cf. \cite[Annex 2]{DBLP:conf/ches/Goubin01}).
+
+\printbibliography
+
+
+\end{document}

@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage[parfill]{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\author{Your name here}
+\date{XX.XX.2024}
+\title{S-box evaluation methods}
+
+\usepackage{filecontents}
+
+\begin{filecontents}{lecture-tum-aci-ss2024-U2.bib}
+\end{filecontents}
+
+\usepackage{biblatex}
+\addbibresource{lecture-tum-aci-ss2024-U2.bib}
+\nocite{*}
+
+\begin{document}
+\maketitle
+
+\section{Exercise \#1}
+
+Find three distinct addition chains to evaluate $x^{254}$, describe the employed methodology, and discuss the results.
+
+\section{Exercise \#2}
+
+Let $C_\alpha = \{ \alpha2^i \bmod{2^n-1}, i\in[0,n-1]\}$ denote the cyclotomic class of $\alpha\in[0,2^n-2]$.
+
+Let $\mathcal{M}_k^n$ denote the class of exponents $\alpha$ such that $x^\alpha$ has a masking complexity equal to $k$.
+
+Compute the cyclotomic and exponent classes for $n=5$.
+
+\section{Exercise \#3 (Extra)}
+
+Assume the following operations are available (in increasing order of computational effort):
+\begin{itemize}
+  \item Type-I: $f(x)=x^{2^\ell}$;
+  \item Type-II: $g(x)=xx^{2^\ell}$;
+  \item Type-III: $h(x,y)=xy$.
+\end{itemize}
+
+
+1. Find a sequence of operations that evaluate $x^{254}$ with maximum three Type-II operations.
+
+2. Find a sequence of operations that evaluate $x^{254}$ with less than four Type-III operations.
+
+3. Describe an algorithm or a methodology to find a sequence of operations that evaluates a given monomial $x^{\alpha}$ with the minimum number of Type-III
+operations.
+
+\printbibliography
+
+\end{document}
+

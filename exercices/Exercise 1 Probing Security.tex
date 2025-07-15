@@ -1,0 +1,145 @@
+\documentclass{article}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage[parfill]{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\author{Zaccarie Kanit}
+\date{22/07/2025}
+
+\title{Probing Security}
+
+\usepackage{filecontents}
+
+\begin{filecontents}{lecture-tum-aci-ss2025-U1.bib}
+@inproceedings{DBLP:conf/crypto/IshaiSW03,
+  author       = {Yuval Ishai and
+                  Amit Sahai and
+                  David A. Wagner},
+  editor       = {Dan Boneh},
+  title        = {Private Circuits: Securing Hardware against Probing Attacks},
+  booktitle    = {Advances in Cryptology - {CRYPTO} 2003, 23rd Annual International
+                  Cryptology Conference, Santa Barbara, California, USA, August 17-21,
+                  2003, Proceedings},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {2729},
+  pages        = {463--481},
+  publisher    = {Springer},
+  year         = {2003},
+  url          = {https://people.eecs.berkeley.edu/~daw/papers/privcirc-crypto03.pdf},
+  doi          = {10.1007/978-3-540-45146-4\_27},
+}
+@inproceedings{DBLP:conf/crypto/BelaidCPRT20,
+  author       = {Sonia Belaïd and
+                  Jean-Sébastien Coron and
+                  Emmanuel Prouff and
+                  Matthieu Rivain and
+                  Abdul Rahman Taleb},
+  editor       = {Daniele Micciancio and
+                  Thomas Ristenpart},
+  title        = {Random Probing Security: Verification, Composition, Expansion and
+                  New Constructions},
+  booktitle    = {Advances in Cryptology - {CRYPTO} 2020 - 40th Annual International
+                  Cryptology Conference, {CRYPTO} 2020, Santa Barbara, CA, USA, August
+                  17-21, 2020, Proceedings, Part {I}},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {12170},
+  pages        = {339--368},
+  publisher    = {Springer},
+  year         = {2020},
+  url          = {https://eprint.iacr.org/2020/786.pdf},
+  doi          = {10.1007/978-3-030-56784-2\_12},
+}
+@misc{vraps,
+  title = {VRAPS: (V)erifier of (RA)ndom (P)robing (S)ecurity},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/CryptoExperts/VRAPS}},
+  commit = {f8f878032fd6a5b9f9b9da7ff816c9f401bdc47b}
+}
+\end{filecontents}
+
+\usepackage{biblatex}
+\addbibresource{lecture-tum-aci-ss2025-U1.bib}
+\nocite{*}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+VRAPS~\cite{vraps} is a formal verification tool introduced in~\cite{DBLP:conf/crypto/BelaidCPRT20} to verify the probing security of masked implementations. It verifies:
+
+\begin{itemize}
+\item $t$-Probing Security (P)
+\item $(p, \varepsilon)$-Random Probing (RP)
+\item $(t, p, \varepsilon)$-Random Probing Composability (RPC)
+\item $(t, f)$-Random Probing Expandability (RPE)
+\end{itemize}
+
+\section{Installation}
+
+The tool requires SageMath (\url{https://www.sagemath.org/index.html}) and Python 3 or higher. To perform the installation, clone the VRAPS repository as follows:
+
+\begin{verbatim}
+$ git clone https://github.com/CryptoExperts/VRAPS
+\end{verbatim}
+
+\section{Usage}\label{sec:usage}
+\begin{enumerate}
+\item Create a text file which contains a description of the gadget using the VRAPS syntax. For example, create a file \texttt{isw\_mul\_2.sage} that contains a multiplication gadget as follows:  
+\begin{verbatim}
+#SHARES 2
+#IN a b
+#RANDOMS r0
+#OUT d
+
+c0 = a0 * b0	
+d0 = c0 + r0
+c1 = a1 * b1
+c1 = c1 + r0
+tmp = a0 * b1
+c1 = c1 + tmp
+tmp = a1 * b0
+d1 = c1 + tmp
+\end{verbatim}
+\item Execute the following command to perform the verification in the 1-probing model (P):
+\begin{verbatim}
+$ sage verif_tool.sage isw_mul_2.sage P -t 1
+Reading file...
+Gadget with 2 input(s), 1 output(s), 2 share(s)
+Total number of intermediate variables : 11
+Total number of output variables : 1
+Total number of Wires : 21
+
+Gadget is 1-Probing Secure !
+\end{verbatim}
+\end{enumerate}
+
+\section{Exercise \#1}
+
+\begin{enumerate}
+  \item Create a multiplication gadget for SecAnd (cf. Lecture L2, $d=2$) and provide its description using the VRAPS syntax here;
+  \item Verify its security in the t-probing model using the VRAPS tool for $t\in\{1,2\}$, and report the results here;
+  \item Draw a graph (circuit) of the multiplication gadget and provide an explanation of the obtained results here.
+\end{enumerate}
+
+\section{Exercise \#2}
+
+For each of the 3 multiplication gadgets described in \cite[Sec.3, p.11]{DBLP:conf/crypto/BelaidCPRT20}:
+\begin{enumerate}
+  \item Create a multiplication gadget and provide its description using the VRAPS syntax here;
+  \item Verify its security in the t-probing model using the VRAPS tool for $t\in\{1,2\}$, and report the results here;
+  \item Draw a graph (circuit) of the multiplication gadget and provide an explanation of the obtained results here.
+\end{enumerate}
+
+\section{Exercise \#3 (Extra)}
+\begin{enumerate}
+  \item Provide an explanation why the multiplication gadget of Exercise \#1 is 1-probing secure; alternatively, provide an explanation that
+the multiplication gadget described in Sec.~\ref{sec:usage} of this document is 1-probing secure; Hint: see the proof of \cite[Th.
+1]{DBLP:conf/crypto/IshaiSW03}.
+\end{enumerate}
+
+\printbibliography
+
+\end{document}
+
