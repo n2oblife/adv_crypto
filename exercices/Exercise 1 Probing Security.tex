@@ -65,7 +65,7 @@
 \begin{document}
 \maketitle
 
-\section{Introduction}
+\section*{Introduction}
 
 VRAPS~\cite{vraps} is a formal verification tool introduced in~\cite{DBLP:conf/crypto/BelaidCPRT20} to verify the probing security of masked implementations. It verifies:
 
@@ -76,7 +76,7 @@ VRAPS~\cite{vraps} is a formal verification tool introduced in~\cite{DBLP:conf/c
 \item $(t, f)$-Random Probing Expandability (RPE)
 \end{itemize}
 
-\section{Installation}
+\subsection*{Installation}
 
 The tool requires SageMath (\url{https://www.sagemath.org/index.html}) and Python 3 or higher. To perform the installation, clone the VRAPS repository as follows:
 
@@ -84,7 +84,7 @@ The tool requires SageMath (\url{https://www.sagemath.org/index.html}) and Pytho
 $ git clone https://github.com/CryptoExperts/VRAPS
 \end{verbatim}
 
-\section{Usage}\label{sec:usage}
+\subsection*{Usage}\label{sec:usage}
 \begin{enumerate}
 \item Create a text file which contains a description of the gadget using the VRAPS syntax. For example, create a file \texttt{isw\_mul\_2.sage} that contains a multiplication gadget as follows:  
 \begin{verbatim}
@@ -115,7 +115,7 @@ Gadget is 1-Probing Secure !
 \end{verbatim}
 \end{enumerate}
 
-\section{Exercise \#1}
+\section*{Exercise \#1}
 
 \begin{enumerate}
   \item Create a multiplication gadget for SecAnd (cf. Lecture L2, $d=2$) and provide its description using the VRAPS syntax here;
@@ -123,7 +123,10 @@ Gadget is 1-Probing Secure !
   \item Draw a graph (circuit) of the multiplication gadget and provide an explanation of the obtained results here.
 \end{enumerate}
 
-\section{Exercise \#2}
+\subsection*{Response}
+
+
+\section*{Exercise \#2}
 
 For each of the 3 multiplication gadgets described in \cite[Sec.3, p.11]{DBLP:conf/crypto/BelaidCPRT20}:
 \begin{enumerate}
@@ -132,7 +135,7 @@ For each of the 3 multiplication gadgets described in \cite[Sec.3, p.11]{DBLP:co
   \item Draw a graph (circuit) of the multiplication gadget and provide an explanation of the obtained results here.
 \end{enumerate}
 
-\section{Exercise \#3 (Extra)}
+\section*{Exercise \#3 (Extra)}
 \begin{enumerate}
   \item Provide an explanation why the multiplication gadget of Exercise \#1 is 1-probing secure; alternatively, provide an explanation that
 the multiplication gadget described in Sec.~\ref{sec:usage} of this document is 1-probing secure; Hint: see the proof of \cite[Th.

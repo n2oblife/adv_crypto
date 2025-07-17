@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+
+# LaTeX
+tmp/
+*.aux
+*.log
+*.out
+*.pdf
+*.toc
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
