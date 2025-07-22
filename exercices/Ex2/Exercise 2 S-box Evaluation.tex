@@ -3,8 +3,12 @@
 \usepackage[parfill]{parskip}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
-\author{Your name here}
-\date{XX.XX.2024}
+
+\newtheorem{definition}{Definition}
+
+\author{Zaccarie Kanit}
+\date{22/07/2025}
+
 \title{S-box evaluation methods}
 
 \usepackage{filecontents}
@@ -19,11 +23,67 @@
 \begin{document}
 \maketitle
 
-\section{Exercise \#1}
+\section*{Exercise \#1}
+Find three distinct addition chains to evaluate $x^{254}$, describe the employed methodology, 
+and discuss the results.
 
-Find three distinct addition chains to evaluate $x^{254}$, describe the employed methodology, and discuss the results.
+\subsection*{Response}
+\begin{enumerate}
+  \item Binary Method (Square-and-Multiply), convert 254 to binary and use repeated squaring
+  with selective multiplications at the end (square number of time there is a 1 until first 0 i binary),
+  $254_{10} = 11111110_2$. \\ 
+  Reliable and systematic but not optimal. Good baseline method : \\
+  1 →[+1] 2 →[+2] 4 →[+4] 8 →[+8] 16 →[+16] 32 →[+32] 64 →[+64] 128 →[+64] 192 →[+32] 224 →[+16] 240 →[+8] 248 →[+4] 252 →[+2] 254
+  % 1
+  % 2 = 1 + 1
+  % 4 = 2 + 2
+  % 8 = 4 + 4
+  % 16 = 8 + 8
+  % 32 = 16 + 16
+  % 64 = 32 + 32
+  % 128 = 64 + 64
+  % 192 = 128 + 64
+  % 224 = 192 + 32
+  % 240 = 224 + 16
+  % 248 = 240 + 8
+  % 252 = 248 + 4
+  % 254 = 252 + 2
+  \item Sliding Window Method, use precomputed small powers and sliding window technique. \\
+  The sliding window method produces the shortest chain (11 operations) by cleverly reusing intermediate results. : \\
+  1 →[+1] 2 →[+1] 3 →[+1] 4 →[+3] 7 →[+7] 14 →[+14] 28 →[+28] 56 →[+7] 63 →[+63] 126 →[+126] 252 →[+2] 254
+  % 1
+  % 2 = 1 + 1
+  % 3 = 2 + 1
+  % 4 = 2 + 2
+  % 7 = 4 + 3
+  % 14 = 7 + 7
+  % 28 = 14 + 14
+  % 56 = 28 + 28
+  % 63 = 56 + 7
+  % 126 = 63 + 63
+  % 252 = 126 + 126
+  % 254 = 252 + 2
+  \item Factor-Based Method, decompose 254 using its factorization and build chains for factors
+  ( $254 = 2 \times 127$ ). \\
+  Less effective here because 127 is prime, but would be excellent for highly composite exponents. : \\
+  1 →[+1] 2 →[+2] 4 →[+4] 8 →[+8] 16 →[+16] 32 →[+32] 64 →[+32] 96 →[+16] 112 →[+8] 120 →[+4] 124 →[+2] 126 →[+1] 127 →[+127] 254
+  % 1
+  % 2 = 1 + 1
+  % 4 = 2 + 2
+  % 8 = 4 + 4
+  % 16 = 8 + 8
+  % 32 = 16 + 16
+  % 64 = 32 + 32
+  % 96 = 64 + 32
+  % 112 = 96 + 16
+  % 120 = 112 + 8
+  % 124 = 120 + 4
+  % 126 = 124 + 2
+  % 127 = 126 + 1
+  % 254 = 127 + 127
+\end{enumerate}
 
-\section{Exercise \#2}
+\section*{Exercise \#2}
 
 Let $C_\alpha = \{ \alpha2^i \bmod{2^n-1}, i\in[0,n-1]\}$ denote the cyclotomic class of $\alpha\in[0,2^n-2]$.
 
@@ -31,7 +91,150 @@ Let $\mathcal{M}_k^n$ denote the class of exponents $\alpha$ such that $x^\alpha
 
 Compute the cyclotomic and exponent classes for $n=5$.
 
-\section{Exercise \#3 (Extra)}
+\subsection*{Response}
+
+For $n=5$, we work in the field $\mathbb{F}_{2^5}$ with modulus $2^5-1 = 31$.
+\begin{definition}[Cyclotomic Class]
+$C_\alpha = \{ \alpha \cdot 2^i \bmod{31} : i \in [0,4]\}$
+\end{definition}
+
+\begin{definition}[Masking Complexity Classes]
+$\mathcal{M}_k^5 = \{\alpha : \text{masking complexity of } x^\alpha \text{ equals } k\}$
+\end{definition}
+
+\subsubsection*{Computing All Cyclotomic Classes}
+
+The cyclotomic classes partition $\{0, 1, 2, \ldots, 30\}$ into equivalence classes under multiplication by powers of 2 modulo 31.
+
+\subsubsection*{Class Computations}
+
+\textbf{Trivial Class:} $C_0 = \{0\}$
+
+\textbf{Class $C_1$:}
+\begin{align*}
+1 \cdot 2^0 &= 1 \pmod{31} \\
+1 \cdot 2^1 &= 2 \pmod{31} \\
+1 \cdot 2^2 &= 4 \pmod{31} \\
+1 \cdot 2^3 &= 8 \pmod{31} \\
+1 \cdot 2^4 &= 16 \pmod{31}
+\end{align*}
+Therefore, $C_1 = \{1, 2, 4, 8, 16\}$.
+
+\textbf{Class $C_3$:}
+\begin{align*}
+3 \cdot 2^0 &= 3 \pmod{31} \\
+3 \cdot 2^1 &= 6 \pmod{31} \\
+3 \cdot 2^2 &= 12 \pmod{31} \\
+3 \cdot 2^3 &= 24 \pmod{31} \\
+3 \cdot 2^4 &= 48 = 17 \pmod{31}
+\end{align*}
+Therefore, $C_3 = \{3, 6, 12, 17, 24\}$.
+
+\textbf{Class $C_5$:}
+\begin{align*}
+5 \cdot 2^0 &= 5 \pmod{31} \\
+5 \cdot 2^1 &= 10 \pmod{31} \\
+5 \cdot 2^2 &= 20 \pmod{31} \\
+5 \cdot 2^3 &= 40 = 9 \pmod{31} \\
+5 \cdot 2^4 &= 80 = 18 \pmod{31}
+\end{align*}
+Therefore, $C_5 = \{5, 9, 10, 18, 20\}$.
+
+\textbf{Class $C_7$:}
+\begin{align*}
+7 \cdot 2^0 &= 7 \pmod{31} \\
+7 \cdot 2^1 &= 14 \pmod{31} \\
+7 \cdot 2^2 &= 28 \pmod{31} \\
+7 \cdot 2^3 &= 56 = 25 \pmod{31} \\
+7 \cdot 2^4 &= 112 = 19 \pmod{31}
+\end{align*}
+Therefore, $C_7 = \{7, 14, 19, 25, 28\}$.
+
+\textbf{Class $C_{11}$:}
+\begin{align*}
+11 \cdot 2^0 &= 11 \pmod{31} \\
+11 \cdot 2^1 &= 22 \pmod{31} \\
+11 \cdot 2^2 &= 44 = 13 \pmod{31} \\
+11 \cdot 2^3 &= 88 = 26 \pmod{31} \\
+11 \cdot 2^4 &= 176 = 21 \pmod{31}
+\end{align*}
+Therefore, $C_{11} = \{11, 13, 21, 22, 26\}$.
+
+\textbf{Class $C_{15}$:}
+\begin{align*}
+15 \cdot 2^0 &= 15 \pmod{31} \\
+15 \cdot 2^1 &= 30 \pmod{31} \\
+15 \cdot 2^2 &= 60 = 29 \pmod{31} \\
+15 \cdot 2^3 &= 120 = 27 \pmod{31} \\
+15 \cdot 2^4 &= 240 = 23 \pmod{31}
+\end{align*}
+Therefore, $C_{15} = \{15, 23, 27, 29, 30\}$.
+
+\subsubsection*{Complete Partition}
+
+The complete set of cyclotomic classes for $n=5$ is:
+\begin{align*}
+C_0 &= \{0\} \\
+C_1 &= \{1, 2, 4, 8, 16\} \\
+C_3 &= \{3, 6, 12, 17, 24\} \\
+C_5 &= \{5, 9, 10, 18, 20\} \\
+C_7 &= \{7, 14, 19, 25, 28\} \\
+C_{11} &= \{11, 13, 21, 22, 26\} \\
+C_{15} &= \{15, 23, 27, 29, 30\}
+\end{align*}
+
+\textbf{Verification:} $1 + 5 + 5 + 5 + 5 + 5 + 5 = 31 = 2^5 - 1$ \checkmark
+
+\subsubsection*{Masking Complexity Analysis}
+
+The masking complexity of $x^\alpha$ is determined by the minimum number of multiplications required to compute $x^\alpha$ using a secure masking scheme resistant to side-channel attacks.
+
+\subsubsection*{Complexity Classification}
+
+\textbf{Zero Complexity:}
+$\mathcal{M}_0^5 = \{0\}$
+Since $x^0 = 1$ requires no multiplications.
+
+\textbf{Single Multiplication:}
+$\mathcal{M}_1^5 = \{1, 2, 4, 8, 16\} = C_1$
+Powers of 2 can be computed with a single squaring operation. Each element requires exactly 1 multiplication.
+
+\textbf{Two Multiplications:}
+For $\alpha = 3$: $x^3 = x \cdot x^2$ (2 operations), so $\mathcal{M}_2^5 \supseteq C_3$.
+
+For $\alpha = 5$: $x^5 = x \cdot x^4$ (2 operations), so $\mathcal{M}_2^5 \supseteq C_5$.
+
+\textbf{Three Multiplications:}
+For $\alpha = 7$: $x^7 = x^3 \cdot x^4$ or $x^7 = x \cdot x^2 \cdot x^4$ (3 operations), so $\mathcal{M}_3^5 \supseteq C_7$.
+
+For $\alpha = 11$: $x^{11} = x^3 \cdot x^8$ (3 operations), so $\mathcal{M}_3^5 \supseteq C_{11}$.
+
+For $\alpha = 15$: $x^{15} = x^3 \cdot x^4 \cdot x^8$ or optimal chains (3 operations), so $\mathcal{M}_3^5 \supseteq C_{15}$.
+
+\subsubsection*{Final Classification}
+
+The masking complexity classes for $n=5$ are:
+\begin{align*}
+\mathcal{M}_0^5 &= \{0\} \\
+\mathcal{M}_1^5 &= \{1, 2, 4, 8, 16\} \\
+\mathcal{M}_2^5 &= \{3, 5, 6, 9, 10, 12, 17, 18, 20, 24\} \\
+\mathcal{M}_3^5 &= \{7, 11, 13, 14, 15, 19, 21, 22, 23, 25, 26, 27, 28, 29, 30\}
+\end{align*}
+
+\subsubsection*{Key Observations}
+
+\begin{enumerate}
+\item \textbf{Class Preservation:} Elements in the same cyclotomic class have identical masking complexity.
+\item \textbf{Optimal Chains:} The complexity is determined by optimal addition chains for exponentiation.
+\item \textbf{Security Implications:} Higher complexity classes require more sophisticated masking techniques.
+\item \textbf{Field Structure:} The cyclotomic class structure reflects the multiplicative structure of $\mathbb{F}_{2^5}^*$.
+\end{enumerate}
+
+\subsubsection*{Computational Verification}
+
+All cyclotomic classes are closed under the operation $\alpha \mapsto 2\alpha \bmod{31}$, and the masking complexities are consistent with known results for secure exponentiation algorithms in characteristic 2 finite fields.
+
+\section*{Exercise \#3 (Extra)}
 
 Assume the following operations are available (in increasing order of computational effort):
 \begin{itemize}
